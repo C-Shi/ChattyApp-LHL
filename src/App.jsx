@@ -22,7 +22,9 @@ class App extends Component {
           id:2
         }
       ]
-    }
+    };
+    // create websocket that connect to the socket channel
+    this.socket = new WebSocket('ws://localhost:3001');
     this.newMessageHanlder = this.newMessageHanlder.bind(this);
   }
 
@@ -33,6 +35,11 @@ class App extends Component {
       const message = this.state.message.concat(newMessage);
       this.setState({ message })
     }, 3000)
+
+    // login connection status once socket is open
+    this.socket.onopen = function(e) {
+      console.log('React Connected to server')
+    }
   }
 
   newMessageHanlder(e){
