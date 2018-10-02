@@ -10,8 +10,11 @@ const wss = new SocketServer({ server });
 
 // setup callback that will run when a client connects to server
 wss.on('connection', ws => {
-  console.log('client connected');
-  // setup a callback when a client close the socket
-  ws.on('close', () => {console.log('client disconnected')})
+  // listen to the incomming message and log them out
+  ws.on('message', data => {
+    const msg = JSON.parse(data);
+    console.log(`${msg.username} said ${msg.content}`)
+  });
+ 
 })
 
