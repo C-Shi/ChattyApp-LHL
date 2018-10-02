@@ -10,18 +10,7 @@ class App extends Component {
       currentUser: {
         name: 'Bob'
       },
-      message: [
-        {
-          username: "Bob",
-          content: "Has anyone seen my marbles?",
-          id:1
-        },
-        {
-          username: "Anonymous",
-          content: "No, I think you lost them. You lost your marbles Bob. You lost them for good.",
-          id:2
-        }
-      ]
+      message: []
     };
     // create websocket that connect to the socket channel
     this.socket = new WebSocket('ws://localhost:3001');
@@ -29,12 +18,11 @@ class App extends Component {
   }
 
   componentDidMount(){
-    console.log("Component did mount App");
-    setTimeout( () => {
-      const newMessage = {id: this.state.message[this.state.message.length - 1].id + 1, username:'Yimiao', content: 'Meow! Meow!'};
-      const message = this.state.message.concat(newMessage);
-      this.setState({ message })
-    }, 3000)
+    // setTimeout( () => {
+    //   const newMessage = {id: this.state.message[this.state.message.length - 1].id + 1, username:'Yimiao', content: 'Meow! Meow!'};
+    //   const message = this.state.message.concat(newMessage);
+    //   this.setState({ message })
+    // }, 3000)
 
     // login connection status once socket is open
     this.socket.onopen = function(e) {
