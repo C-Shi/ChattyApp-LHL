@@ -8,7 +8,7 @@ class App extends Component {
     super();
     this.state = {
       currentUser: {
-        name: 'Anonymous'
+        name: 'Anonymous',
       },
       message: [],
       totalUsers: ''
@@ -20,7 +20,18 @@ class App extends Component {
   }
 
   componentDidMount(){
+
     this.renderMessage();
+    const color = this.generateRandomColor();
+    const currentUser = {
+      name: this.state.currentUser.name,
+      color,
+    }
+    this.setState({ currentUser });
+  }
+
+  generateRandomColor() {
+    return '#'+(Math.random()*0xFFFFFF<<0).toString(16);
   }
 
   // this method listen to the incoming broadcast messages from server 
@@ -53,6 +64,7 @@ class App extends Component {
         // attached a type of msg to server, so when received, will know if this is a message or notification
         type: 'message',
         username: this.state.currentUser.name,
+        color: this.state.currentUser.color,
         content: e.target.value
       }
       this.socket.send(JSON.stringify(msg));
@@ -68,10 +80,15 @@ class App extends Component {
       const name = e.target.value;
       // update current state user
       const preUser = this.state.currentUser.name;
-      this.setState({currentUser: { name }})
+      const currentUser = {
+        name,
+        color: this.state.currentUser.color
+      }
+      this.setState({ currentUser })
 
       // as everybody start from Anonymous, there is no point to show notification if some change Anonymous to real name
-      if (preUser !== 'Anonymous') {
+      // also if user does not change anything but only type enter, do not show notification
+      if (preUser !== 'Anonymous' && e.target.value !== preUser) {
         // when update, send to server and let everyone else know
         const notification = {
           type: 'notification',
