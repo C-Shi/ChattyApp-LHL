@@ -5,7 +5,7 @@ const NavBar = (props) => {
   const user = props.totalUsers ? <div>{props.totalUsers} Users Online</div> : <div>Loading Users ... </div>
   return (
     <nav className="navbar">
-      <p className="navbar-brand">Chatty</p>
+      <p className="navbar-brand">Chatty Room</p>
       {user}
     </nav>
   )

@@ -76,7 +76,6 @@ class App extends Component {
         content: e.target.value,
         avatar: this.state.currentUser.avatar,
       }
-      console.log(msg);
       this.socket.send(JSON.stringify(msg));
       e.target.value = "";
     }
@@ -92,7 +91,8 @@ class App extends Component {
       const preUser = this.state.currentUser.name;
       const currentUser = {
         name,
-        color: this.state.currentUser.color
+        color: this.state.currentUser.color,
+        avatar: this.state.currentUser.avatar
       }
       this.setState({ currentUser })
 
@@ -102,6 +102,7 @@ class App extends Component {
         // when update, send to server and let everyone else know
         const notification = {
           type: 'notification',
+          avatar: this.state.currentUser.avatar,
           content: `${preUser} has change name to ${name}`
         }
         // send notification to websocket server

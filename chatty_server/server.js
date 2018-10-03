@@ -2,6 +2,8 @@ const express = require('express');
 const SocketServer = require('ws').Server;
 const WebSocket = require('ws');
 const uuidv1= require('uuid/v1');
+const Filter = require('bad-words');
+const filter = new Filter({ placeHolder: 'x'});
 
 const PORT = 3001;
 
@@ -18,6 +20,7 @@ wss.on('connection', ws => {
   const getTotalUser = () => {
     wss.clients.forEach(client => {
       if (client.readyState === WebSocket.OPEN) {
+        console.log(client);
         client.send(wss.clients.size);
       }
     })
@@ -42,6 +45,7 @@ wss.on('connection', ws => {
   };
   ws.on('message', data => {
     const incomingMsg = JSON.parse(data);
+    incomingMsg.content = filter.clean(incomingMsg.content);
     const id = uuidv1();
     const outgointMsg = JSON.stringify({id, ...incomingMsg});
     // execute the defined function to send data

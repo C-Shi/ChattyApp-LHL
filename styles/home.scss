@@ -12,7 +12,7 @@ body {
 }
 
 .chatbar {
-  background: tomato;
+  background: #b85de2;
   border-top: 1px solid black;
   bottom: 0;
   display: flex;
@@ -43,11 +43,13 @@ body {
 .message {
   display: flex;
   padding: 5px;
+  transition: background-color .6s;
 }
 
 .messages {
     overflow: visible;
     padding-left: 15px;
+    padding-right: 15px;
 }
 
 .message.system {
@@ -72,7 +74,7 @@ body {
 }
 
 .navbar {
-  background: tomato;
+  background: #b85de2;
   border-bottom: 1px solid black;
   display: flex;
   height: 60px;
@@ -114,9 +116,14 @@ body {
 
 .notification {
   padding: 5px;
+  transition: background-color .6s
 }
 
 #avatar {
   height: 30px;
+}
+
+.message:hover, .notification:hover {
+  background-color: #eee
 }
 
