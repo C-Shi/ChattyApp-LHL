@@ -119,6 +119,10 @@ body {
   transition: background-color .6s
 }
 
+.fas:hover {
+  cursor: pointer;
+}
+
 #avatar {
   height: 30px;
 }

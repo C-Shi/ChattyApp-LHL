@@ -19,6 +19,7 @@ class App extends Component {
     this.newMessageHanlder = this.newMessageHanlder.bind(this);
     this.changeNameHandler = this.changeNameHandler.bind(this);
     this.enterRoomHandler = this.enterRoomHandler.bind(this);
+    this.clearChatHandler = this.clearChatHandler.bind(this);
   }
 
   componentDidMount(){
@@ -130,17 +131,23 @@ class App extends Component {
     this.setState({currentUser: {name: username, color, avatar}})
   }
 
+  clearChatHandler(){
+    this.setState({ message: [] })
+  }
+
   render() {
     // render form or chat form depands on user
     const page = this.state.currentUser.name ? 
       <div>
-          <NavBar totalUsers={this.state.totalUsers}/>
+          <NavBar totalUsers={this.state.totalUsers} clearMessage={this.clearChatHandler}/>
           {/* b/c notification and message are both treated as message, 
             it will passed down to <Message /> Component and apply different logic there 
             this <App /> component do not perform and logic on what should render
           */}
           <MessageList messages={this.state.message}/>
-          <ChatBar currentUser={this.state.currentUser} messageHanlder={(e) => this.newMessageHanlder(e)} nameHandler={(e) => this.changeNameHandler(e)}/>
+          <ChatBar currentUser={this.state.currentUser} 
+                   messageHanlder={(e) => this.newMessageHanlder(e)} 
+                   nameHandler={(e) => this.changeNameHandler(e)} />
         </div>
       :
       <div>

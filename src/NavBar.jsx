@@ -7,6 +7,7 @@ const NavBar = (props) => {
     <nav className="navbar">
       <p className="navbar-brand">Chatty Room</p>
       {user}
+      <i className="fas fa-trash-alt navbar-brand" onClick={props.clearMessage}></i>
     </nav>
   )
 }
