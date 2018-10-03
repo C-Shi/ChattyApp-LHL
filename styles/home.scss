@@ -1,5 +1,6 @@
 html, body {
   height: 100%;
+  overflow: scroll;
 }
 
 h1 {
@@ -49,8 +50,10 @@ body {
 .message {
   display: flex;
   padding: 5px;
-  // add 80px margin to offset the height of sticky footer
-  margin-bottom: 80px;
+}
+
+.messages {
+    overflow: visible;
 }
 
 .message.system {

@@ -20,7 +20,6 @@ class App extends Component {
   }
 
   componentDidMount(){
-
     this.renderMessage();
     const color = this.generateRandomColor();
     const currentUser = {
@@ -28,6 +27,18 @@ class App extends Component {
       color,
     }
     this.setState({ currentUser });
+  }
+
+  componentDidUpdate(){
+    const body = document.getElementsByTagName('body')[0];
+    console.log('scrollHeight ', body.scrollHeight);
+    console.log('clientHeight ', body.clientHeight);
+    console.log('scrollTop ', body.scrollTop)
+    if (body.scrollHeight - 120 > body.clientHeight) {
+      body.scrollTop = body.scrollHeight;
+    } else if(body.scrollHeight - 120 < body.clientHeight) {
+      body.scrolltop = 0;
+    }
   }
 
   generateRandomColor() {

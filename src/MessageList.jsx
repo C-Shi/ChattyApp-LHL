@@ -12,7 +12,7 @@ class MessageList extends Component {
     })
 
     return (
-      <main className="messages">
+      <main className="messages" id="message-list">
         {messageList}
       </main>
     )
