@@ -2,13 +2,14 @@ import React, {Component} from 'react';
 import ChatBar from './ChatBar.jsx';
 import MessageList from './MessageList.jsx';
 import NavBar from './NavBar.jsx';
+import Landing from './Landing.jsx';
 
 class App extends Component {
   constructor () {
     super();
     this.state = {
       currentUser: {
-        name: 'Anonymous',
+        name: '',
       },
       message: [],
       totalUsers: ''
@@ -17,6 +18,7 @@ class App extends Component {
     this.socket = new WebSocket('ws://localhost:3001');
     this.newMessageHanlder = this.newMessageHanlder.bind(this);
     this.changeNameHandler = this.changeNameHandler.bind(this);
+    this.enterRoomHandler = this.enterRoomHandler.bind(this);
   }
 
   componentDidMount(){
@@ -31,9 +33,6 @@ class App extends Component {
 
   componentDidUpdate(){
     const body = document.getElementsByTagName('body')[0];
-    console.log('scrollHeight ', body.scrollHeight);
-    console.log('clientHeight ', body.clientHeight);
-    console.log('scrollTop ', body.scrollTop)
     if (body.scrollHeight - 120 > body.clientHeight) {
       body.scrollTop = body.scrollHeight;
     } else if(body.scrollHeight - 120 < body.clientHeight) {
@@ -111,18 +110,40 @@ class App extends Component {
     }
   }
 
+  // this handler will take care of the initial username enter
+  // we do not want any Ananoymos user
+  enterRoomHandler (e) {
+    e.preventDefault();
+    const username = e.target.elements[0].value;
+    const greeting = e.target.elements[1].value;
+    const msg = {
+      // attached a type of msg to server, so when received, will know if this is a message or notification
+      type: 'notification',
+      username,
+      content: `${username} Enter Room: ${greeting}`
+    }
+    this.socket.send(JSON.stringify(msg));
+    const preUser = this.state.currentUser;
+    this.setState({currentUser: {name: username, color: preUser.color}})
+  }
   render() {
-    return (
+    // render form or chat form depands on user
+    const page = this.state.currentUser.name ? 
       <div>
-        <NavBar totalUsers={this.state.totalUsers}/>
-        {/* b/c notification and message are both treated as message, 
-          it will passed down to <Message /> Component and apply different logic there 
-          this <App /> component do not perform and logic on what should render
-        */}
-        <MessageList messages={this.state.message}/>
-        <ChatBar currentUser={this.state.currentUser} messageHanlder={(e) => this.newMessageHanlder(e)} nameHandler={(e) => this.changeNameHandler(e)}/>
+          <NavBar totalUsers={this.state.totalUsers}/>
+          {/* b/c notification and message are both treated as message, 
+            it will passed down to <Message /> Component and apply different logic there 
+            this <App /> component do not perform and logic on what should render
+          */}
+          <MessageList messages={this.state.message}/>
+          <ChatBar currentUser={this.state.currentUser} messageHanlder={(e) => this.newMessageHanlder(e)} nameHandler={(e) => this.changeNameHandler(e)}/>
+        </div>
+      :
+      <div>
+        <Landing onSubmit={(e) => this.enterRoomHandler(e)}/>
       </div>
-    )
+
+    return page;
   }
 }
 export default App;
