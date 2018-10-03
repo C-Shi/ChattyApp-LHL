@@ -10,7 +10,8 @@ class App extends Component {
       currentUser: {
         name: 'Anonymous'
       },
-      message: []
+      message: [],
+      totalUsers: ''
     };
     // create websocket that connect to the socket channel
     this.socket = new WebSocket('ws://localhost:3001');
@@ -26,12 +27,20 @@ class App extends Component {
   // this method treat both message/notification as message, update state's message
   renderMessage() {
     this.socket.onmessage = (e) => {
-      const incomingMsg = JSON.parse(e.data);
-      // attach incoming message to state
-      // Treat notification as a type of message
-      this.setState(
-        {message: this.state.message.concat(incomingMsg)}
-      )
+      const data = JSON.parse(e.data);
+      if (data.type) {
+        // attach incoming message to state
+        // Treat notification as a type of message
+        const incomingMsg = data;
+        this.setState(
+          { message: this.state.message.concat(incomingMsg)}
+        )
+      } else {
+        // add this set time out animation to offset weired user exp when loading time is milisecond
+        setTimeout(() => {
+          this.setState({totalUsers: data})
+        }, 400)
+      }
     }
   }
 
@@ -77,7 +86,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <NavBar />
+        <NavBar totalUsers={this.state.totalUsers}/>
         {/* b/c notification and message are both treated as message, 
           it will passed down to <Message /> Component and apply different logic there 
           this <App /> component do not perform and logic on what should render
