@@ -60,13 +60,17 @@ class App extends Component {
       // update current state user
       const preUser = this.state.currentUser.name;
       this.setState({currentUser: { name }})
-      // when update, send to server and let everyone else know
-      const notification = {
-        type: 'notification',
-        content: `${preUser} has change name to ${name}`
+
+      // as everybody start from Anonymous, there is no point to show notification if some change Anonymous to real name
+      if (preUser !== 'Anonymous') {
+        // when update, send to server and let everyone else know
+        const notification = {
+          type: 'notification',
+          content: `${preUser} has change name to ${name}`
+        }
+        // send notification to websocket server
+        this.socket.send(JSON.stringify(notification));
       }
-      // send notification to websocket server
-      this.socket.send(JSON.stringify(notification));
     }
   }
 
