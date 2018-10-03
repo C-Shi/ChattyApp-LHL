@@ -1,5 +1,7 @@
 const express = require('express');
 const SocketServer = require('ws').Server;
+const WebSocket = require('ws');
+const uuidv1= require('uuid/v1');
 
 const PORT = 3001;
 
@@ -11,9 +13,22 @@ const wss = new SocketServer({ server });
 // setup callback that will run when a client connects to server
 wss.on('connection', ws => {
   // listen to the incomming message and log them out
+
+  // attach broadcast function -- this should be defined before ws.on() otherwise will throw error
+  wss.broadcast = function broadcast(data) {
+    // need to catch all the clients at this point
+    wss.clients.forEach(function each(client) {
+      if (client.readyState === WebSocket.OPEN) {
+        client.send(data);
+      }
+    });
+  };
   ws.on('message', data => {
-    const msg = JSON.parse(data);
-    console.log(`${msg.username} said ${msg.content}`)
+    const incomingMsg = JSON.parse(data);
+    const id = uuidv1();
+    const outgointMsg = JSON.stringify({id, ...incomingMsg});
+    // execute the defined function to send data
+    wss.broadcast(outgointMsg);
   });
  
 })

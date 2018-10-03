@@ -18,36 +18,22 @@ class App extends Component {
   }
 
   componentDidMount(){
-    // setTimeout( () => {
-    //   const newMessage = {id: this.state.message[this.state.message.length - 1].id + 1, username:'Yimiao', content: 'Meow! Meow!'};
-    //   const message = this.state.message.concat(newMessage);
-    //   this.setState({ message })
-    // }, 3000)
+    this.updateMessage();
+  }
 
-    // login connection status once socket is open
-    this.socket.onopen = function(e) {
-      console.log('React Connected to server')
+  updateMessage() {
+    this.socket.onmessage = (e) => {
+      const incomingMsg = JSON.parse(e.data);
+      // attach incoming message to state
+      this.setState(
+        {message: this.state.message.concat(incomingMsg)}
+      )
     }
   }
 
+
   newMessageHanlder(e){
     const keyCode = e.keyCode || e.which;
-    // check if there is anything in the enter box and see if the key is 'enter'
-    // if(e.target.value && keyCode === 13) {
-    //   // grab the latest id in the dom and add one
-    //   const id = this.state.message[this.state.message.length - 1].id + 1;
-    //   const username = this.state.currentUser.name;
-    //   const newMessage = {
-    //     id,
-    //     username,
-    //     content: e.target.value
-    //   }
-    //   // update state - use concat instead of push to avoid mutating state directly
-    //   const message = this.state.message.concat(newMessage);
-    //   this.setState({ message })
-    //   // reset value to zero
-    //   e.target.value = ''
-    // }
 
     if(e.target.value && keyCode === 13) {
       const msg = {
