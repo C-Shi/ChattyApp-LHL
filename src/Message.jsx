@@ -8,7 +8,8 @@ const Message = (props) => {
   ? 
   (
     <div className="message">
-      <span className="message-username" style={{color: props.color}}>{props.username}</span>
+      <img src={props.avatar} id="avatar"/>
+      <span className="message-username" style={{color: props.color}}>{props.username}: </span>
       <span className="message-content">
         <img className="img" src={props.content} />
       </span>
@@ -17,14 +18,23 @@ const Message = (props) => {
   :
   (
     <div className="message">
-      <span className="message-username" style={{color: props.color}}>{props.username}</span>
+      <img src={props.avatar} id="avatar"/>
+      <span className="message-username" style={{color: props.color}}>
+        {props.username}: 
+      </span>
       <span className="message-content">{props.content}</span>
     </div>
   )
 
+  const noteStyle = {
+    'fontSize': '1.5em',
+    'lineHeight': '15px'
+  }
+
   const notification = (
     <div className="notification">
-      <span className="notification-content">{props.content}</span>
+      <img src={props.avatar} id="avatar"/>
+      <span className="notification-content message-username">{props.content}</span>
     </div>
   )
 

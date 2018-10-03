@@ -23,12 +23,6 @@ class App extends Component {
 
   componentDidMount(){
     this.renderMessage();
-    const color = this.generateRandomColor();
-    const currentUser = {
-      name: this.state.currentUser.name,
-      color,
-    }
-    this.setState({ currentUser });
   }
 
   componentDidUpdate(){
@@ -42,6 +36,10 @@ class App extends Component {
 
   generateRandomColor() {
     return '#'+(Math.random()*0xFFFFFF<<0).toString(16);
+  }
+
+  generateAvatar(name){
+    return `https://api.adorable.io/avatars/40/${name}`
   }
 
   // this method listen to the incoming broadcast messages from server 
@@ -75,8 +73,10 @@ class App extends Component {
         type: 'message',
         username: this.state.currentUser.name,
         color: this.state.currentUser.color,
-        content: e.target.value
+        content: e.target.value,
+        avatar: this.state.currentUser.avatar,
       }
+      console.log(msg);
       this.socket.send(JSON.stringify(msg));
       e.target.value = "";
     }
@@ -116,16 +116,19 @@ class App extends Component {
     e.preventDefault();
     const username = e.target.elements[0].value;
     const greeting = e.target.elements[1].value;
+    const avatar = this.generateAvatar(username);
+    const color = this.generateRandomColor();
     const msg = {
       // attached a type of msg to server, so when received, will know if this is a message or notification
       type: 'notification',
       username,
-      content: `${username} Enter Room: ${greeting}`
+      content: `${username} Enter Room: ${greeting}`,
+      avatar,
     }
     this.socket.send(JSON.stringify(msg));
-    const preUser = this.state.currentUser;
-    this.setState({currentUser: {name: username, color: preUser.color}})
+    this.setState({currentUser: {name: username, color, avatar}})
   }
+
   render() {
     // render form or chat form depands on user
     const page = this.state.currentUser.name ? 

@@ -47,6 +47,7 @@ body {
 
 .messages {
     overflow: visible;
+    padding-left: 15px;
 }
 
 .message.system {
@@ -109,5 +110,13 @@ body {
   max-width: 60%;
   height: auto;
   float: left;
+}
+
+.notification {
+  padding: 5px;
+}
+
+#avatar {
+  height: 30px;
 }
 

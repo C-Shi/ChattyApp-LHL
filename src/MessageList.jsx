@@ -8,7 +8,7 @@ class MessageList extends Component {
 
   render(){
     const messageList = this.props.messages.map(message => {
-      return <Message type={message.type} username={message.username} content={message.content} key={message.id} color={message.color}/>
+      return <Message type={message.type} username={message.username} content={message.content} key={message.id} color={message.color} avatar={message.avatar}/>
     })
 
     return (
