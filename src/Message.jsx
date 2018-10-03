@@ -2,7 +2,20 @@ import React, {Component} from 'react';
 
 const Message = (props) => {
 
-  const message = (
+  const regex = /(http)?s?:\/\/.*\.(?:png|jpg|jpeg|gif|png|svg)/;
+
+  const message = regex.test(props.content) 
+  ? 
+  (
+    <div className="message">
+      <span className="message-username" style={{color: props.color}}>{props.username}</span>
+      <span className="message-content">
+        <img className="img" src={props.content} />
+      </span>
+    </div>
+  )
+  :
+  (
     <div className="message">
       <span className="message-username" style={{color: props.color}}>{props.username}</span>
       <span className="message-content">{props.content}</span>
