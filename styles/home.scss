@@ -3,12 +3,6 @@ html, body {
   overflow: scroll;
 }
 
-h1 {
-  color: black;
-  margin: 0;
-}
-
-
 body {
   background: white;
   color: black;
@@ -26,7 +20,6 @@ body {
   padding: 5px;
   position: fixed;
   right: 0;
-
 }
 
 .chatbar-message,
@@ -80,12 +73,24 @@ body {
 .navbar {
   background: tomato;
   border-bottom: 1px solid black;
+  display: flex;
   height: 60px;
   left: 0;
   padding: 0 10px;
   position: fixed;
   right: 0;
   top: 0;
+
+  p {
+    flex-grow: 8;
+    margin: 0;
+  }
+
+  div {
+    flex-grow: 2;
+    text-align: center;
+    line-height: 60px;
+  }
 }
 
 .navbar-brand {

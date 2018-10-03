@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 
 const NavBar = (props) => {
   // let react handle loading time 
-  const user = props.totalUsers ? <span>{props.totalUsers} Users Online</span> : <span>Loading Users ... </span>
+  const user = props.totalUsers ? <div>{props.totalUsers} Users Online</div> : <div>Loading Users ... </div>
   return (
-    <h1 className="navbar">
-      Chatty &nbsp;
+    <nav className="navbar">
+      <p className="navbar-brand">Chatty</p>
       {user}
-    </h1>
+    </nav>
   )
 }
 
