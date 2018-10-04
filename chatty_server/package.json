@@ -11,6 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "bad-words": "^1.6.4",
-    "uuid": "^3.3.2"
+    "express": "^4.16.3",
+    "uuid": "^3.3.2",
+    "ws": "^6.0.0"
   }
 }
