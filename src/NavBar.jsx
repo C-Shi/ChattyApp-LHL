@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 
 const NavBar = (props) => {
   // let react handle loading time 
@@ -10,6 +10,11 @@ const NavBar = (props) => {
       <i className="fas fa-trash-alt navbar-brand" onClick={props.clearMessage}></i>
     </nav>
   )
+}
+
+NavBar.propTypes = {
+  totalUsers: React.PropTypes.string,
+  clearMessage: React.PropTypes.func
 }
 
 export default NavBar

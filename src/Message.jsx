@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 
 const Message = (props) => {
 
@@ -25,11 +25,6 @@ const Message = (props) => {
       <span className="message-content">{props.content}</span>
     </div>
   )
-
-  const noteStyle = {
-    'fontSize': '1.5em',
-    'lineHeight': '15px'
-  }
 
   const notification = (
     <div className="notification">

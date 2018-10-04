@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 const Landing = (props) => {
   return (
@@ -11,6 +11,10 @@ const Landing = (props) => {
       </form>
     </div>
   )
+}
+
+Landing.propTypes = {
+  onSubmit: React.PropTypes.func
 }
 
 export default Landing;

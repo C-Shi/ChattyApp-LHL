@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import { IncomingMessage } from 'http';
 
 class ChatBar extends Component {
   constructor(){
@@ -23,7 +22,7 @@ class ChatBar extends Component {
 
   }
 
-  toggleHandler(e) {
+  toggleHandler() {
     const board = document.getElementsByClassName('board')[0];
     board.classList.toggle('hide');
   }
@@ -37,15 +36,21 @@ class ChatBar extends Component {
 
     return (
       <footer className="chatbar">
-        <input className="chatbar-username" placeholder="Your Name (Optional)" defaultValue={this.props.currentUser.name} onKeyPress={this.props.nameHandler} />
+        <input className="chatbar-username" placeholder="Your Name (Optional)" defaultValue={this.props.currentUser.name || 'Anonymous'} onKeyPress={this.props.nameHandler} />
         <div>
           {board}	
-          <p><i className="far fa-smile-wink" onClick={(e) => this.toggleHandler(e)}></i></p>
+          <p><i className="far fa-smile-wink" onClick={this.toggleHandler}></i></p>
         </div>
         <input id="input-message" className="chatbar-message" placeholder="Type a message and hit ENTER" onKeyPress={this.props.messageHanlder}/>
       </footer>
     )
   }
+}
+
+ChatBar.propTypes = {
+  currentUser: React.PropTypes.object,
+  nameHandler: React.PropTypes.func,
+  messageHanlder: React.PropTypes.func
 }
 
 export default ChatBar;

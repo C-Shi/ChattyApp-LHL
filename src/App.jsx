@@ -78,7 +78,7 @@ class App extends Component {
         avatar: this.state.currentUser.avatar,
       }
       this.socket.send(JSON.stringify(msg));
-      e.target.value = "";
+      e.target.value = '';
     }
   }
 
