@@ -15,18 +15,22 @@ A ReactJS project that allows users to communicate with each other without havin
 ### Demo
  - Enter The Chat Room
  ![1](./doc/1.gif)
-
+=====================
  - Multiple Chat Window
  ![2](./doc/2.gif)
+=====================
 
  - Change User Name
  ![3](./doc/3.gif)
+=====================
 
  - Send Image
  ![4](./doc/4.gif)
+=====================
 
  - Delete Conversion
  ![5](./doc/5.gif)
+=====================
 
 ### Get Started
 Clone this repo to your local machine. Make sure you have npm and node installed
