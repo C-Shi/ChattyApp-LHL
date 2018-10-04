@@ -131,3 +131,32 @@ body {
   background-color: #eee
 }
 
+.em {
+  float:left;
+  width:9%;
+}
+
+.em:hover {
+  cursor: pointer;
+}
+
+.board {
+  padding: 5px;
+  font-size: 1.1em;
+  position: absolute;
+  background-color: #eee;
+  width: 150px;
+  bottom: 70px;
+
+  div {
+    margin: 1px;
+  }
+}
+
+.far {
+  font-size: 1.5em
+}
+
+.hide {
+  display: none;
+}
