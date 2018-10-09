@@ -54,7 +54,7 @@ npm start
 ```
 
 * Start Chatting
-Open `http://localhost:3000/build/my_image.png`
+Open `http://localhost:3000/`
 
 ### Dependencies 
 * react
